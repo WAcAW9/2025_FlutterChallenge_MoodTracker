@@ -7,7 +7,6 @@ import 'package:mood_tracker/features/authentication/view_models/signup_view_mod
 import 'package:mood_tracker/features/authentication/widgets/form_button.dart';
 import 'package:mood_tracker/features/constants/gaps.dart';
 import 'package:mood_tracker/features/constants/sizes.dart';
-import 'package:mood_tracker/features/tabNavigation/views/user_screen.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   static const routeName = "/sign_up";

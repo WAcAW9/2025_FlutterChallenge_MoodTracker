@@ -6,7 +6,7 @@ import 'package:mood_tracker/features/authentication/sign_up_screen.dart';
 import 'package:mood_tracker/features/authentication/view_models/login_view_model.dart';
 import 'package:mood_tracker/features/authentication/widgets/form_button.dart';
 import 'package:mood_tracker/features/constants/sizes.dart';
-import 'package:mood_tracker/features/tabNavigation/views/user_screen.dart';
+import 'package:mood_tracker/features/tabNavigation/views/settings_screen.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   static const routeName = "/";
@@ -38,7 +38,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   }
 
   void _goMain(BuildContext context, String username) {
-    context.go(UserScreen.routeName, extra: UserScreenArgs(username: username));
+    context.go(UserScreen.routeName);
   }
 
   @override
