@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:mood_tracker/features/authentication/repos/authentication_repo.dart';
 import 'package:mood_tracker/features/authentication/sign_in_screen.dart';
 import 'package:mood_tracker/features/authentication/sign_up_screen.dart';
+import 'package:mood_tracker/features/settings/settings_screen.dart';
 import 'package:mood_tracker/features/tabNavigation/views/user_screen.dart';
 
 final routerProvider = Provider((ref) {
+  ref.watch(authSate);
   return GoRouter(
     initialLocation: "/user",
     redirect: (context, state) {
@@ -27,12 +29,21 @@ final routerProvider = Provider((ref) {
         path: SignUpScreen.routeName,
         builder: (context, state) => const SignUpScreen(),
       ),
+      // GoRoute(
+      //   path: NicknameScreen.routeName,
+      //   builder: (context, state) => const NicknameScreen(),
+      // ),
       GoRoute(
         path: UserScreen.routeName,
         builder: (context, state) {
-          final args = state.extra as UserScreenArgs;
-          return UserScreen(username: args.username);
+          final args = state.extra as UserScreenArgs?;
+          final username = args?.username ?? 'Guest';
+          return UserScreen(username: username);
         },
+      ),
+      GoRoute(
+        path: SettingsScreen.routeName,
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
   );
