@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"nomad-moodtracker","appId":"1:40896776598:android:acb1b5c1281406bb44f5b7","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"nomad-moodtracker","configurations":{"android":"1:40896776598:android:acb1b5c1281406bb44f5b7","web":"1:40896776598:web:14f0186457c58a6d44f5b7"}}}}}}
