@@ -13,16 +13,13 @@ class FormButton extends StatelessWidget {
       child: AnimatedContainer(
         padding: const EdgeInsets.symmetric(vertical: Sizes.size16),
         decoration: BoxDecoration(
-          color: disabled ? Colors.grey : Colors.black,
+          color: disabled ? Colors.grey : Colors.teal,
           borderRadius: BorderRadius.circular(Sizes.size5),
         ),
         duration: const Duration(milliseconds: 500),
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 500),
-          style: TextStyle(
-            color: disabled ? Colors.grey.shade400 : Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           child: const Text('Next', textAlign: TextAlign.center),
         ),
       ),

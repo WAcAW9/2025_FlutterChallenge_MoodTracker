@@ -1,4 +1,3 @@
-// 회원가입 스크린
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -80,20 +79,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   }
 
   void _onSubmit() {
-    if (_email.isEmpty || _isEmailValid() != null || !_isPasswordValid()) {
-      return;
+    if (_email.isNotEmpty && _isEmailValid() == null && _isPasswordValid()) {
+      ref.read(signUpForm.notifier).state = {
+        "email": _email,
+        "password": _password,
+      };
+      ref.read(signUpProvider.notifier).signUp(context);
     }
-    ref.read(signUpForm.notifier).state = {
-      "email": _email,
-      "password": _password,
-    };
-    ref.read(signUpProvider.notifier).signUp(context);
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const UserScreen(username: "wacaw"),
-    //   ),
-    // );
   }
 
   @override
@@ -101,71 +93,94 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
-        appBar: AppBar(title: Text("회원가입 스크린")),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IconButton(
-              onPressed: () => _onTap(context),
-              icon: Icon(Icons.adb_outlined),
-            ),
-            Text('회원가입 스크린'),
-
-            // 이메일 입력란
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Sizes.size16),
-              child: TextField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                onEditingComplete: _onSubmit,
-                autocorrect: false,
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  errorText: _isEmailValid(),
-                ),
-              ),
-            ),
-
-            // 비밀번호 입력란
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Sizes.size16),
-              child: TextField(
-                controller: _passwordController,
-                onEditingComplete: _onSubmit,
-                obscureText: _obscureText,
-                autocorrect: false,
-                decoration: InputDecoration(
-                  suffix: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: _onClearTap,
-                        child: Icon(Icons.close),
-                      ),
-                      Gaps.h16,
-                      GestureDetector(
-                        onTap: _toggleObscureText,
-                        child: Icon(Icons.remove_red_eye_outlined),
-                      ),
-                    ],
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(Sizes.size24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Gaps.v96,
+                Text(
+                  'Mood Tracker',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.teal,
+                    fontSize: Sizes.size44,
+                    fontWeight: FontWeight.w700,
                   ),
-                  hint: Text("password"),
                 ),
-              ),
+                Text(
+                  'Sign Up',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: Sizes.size28),
+                ),
+                Gaps.v28,
+                TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  onEditingComplete: _onSubmit,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    hintText: "Email",
+                    errorText: _isEmailValid(),
+                  ),
+                ),
+                Gaps.v28,
+                TextField(
+                  controller: _passwordController,
+                  onEditingComplete: _onSubmit,
+                  obscureText: _obscureText,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    suffix: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: _onClearTap,
+                          child: Icon(Icons.close),
+                        ),
+                        Gaps.h16,
+                        GestureDetector(
+                          onTap: _toggleObscureText,
+                          child: Icon(Icons.remove_red_eye_outlined),
+                        ),
+                      ],
+                    ),
+                    hintText: "password",
+                  ),
+                ),
+                Gaps.v28,
+                GestureDetector(
+                  onTap: _onSubmit,
+                  child: FormButton(
+                    disabled:
+                        _email.isEmpty ||
+                        _isEmailValid() != null ||
+                        !_isPasswordValid() ||
+                        ref.watch(signUpProvider).isLoading,
+                  ),
+                ),
+                Gaps.v28,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("이미 계정이 있으신가요? "),
+                    GestureDetector(
+                      onTap: () => _onTap(context),
+                      child: const Text(
+                        "로그인",
+                        style: TextStyle(
+                          color: Colors.teal,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Gaps.v28,
-            GestureDetector(
-              onTap: _onSubmit,
-              child: FormButton(
-                disabled:
-                    _email.isEmpty ||
-                    _isEmailValid() != null ||
-                    !_isPasswordValid() ||
-                    ref.watch(signUpProvider).isLoading,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

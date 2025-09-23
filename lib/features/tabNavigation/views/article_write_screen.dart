@@ -38,7 +38,7 @@ class _ArticleWriteScreenState extends ConsumerState<ArticleWriteScreen> {
   }
 
   String _getEmoji(int index) {
-    const emojis = ['😀', '😍', '😊', '🤪', '😭', '🤬', '💬', '🤮'];
+    const emojis = ['😀', '😍', '😊', '🤪', '😭', '🤬', '🥳', '🤮'];
     return emojis[index];
   }
 
@@ -62,12 +62,11 @@ class _ArticleWriteScreenState extends ConsumerState<ArticleWriteScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black, width: 2),
                     boxShadow: const [
                       BoxShadow(
-                        color: Colors.black,
+                        color: Colors.black26,
                         offset: Offset(4, 4),
-                        blurRadius: 0,
+                        blurRadius: 10,
                       ),
                     ],
                   ),
@@ -94,24 +93,20 @@ class _ArticleWriteScreenState extends ConsumerState<ArticleWriteScreen> {
                     final emoji = _getEmoji(index);
                     return Expanded(
                       child: GestureDetector(
-                        onTap: () => _onEmojiTap(emoji), // 탭 이벤트 추가
+                        onTap: () => _onEmojiTap(emoji),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: Material(
                             elevation: 4.0,
-                            shadowColor: Colors.black,
+                            shadowColor: Colors.teal,
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
                               height: 50,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: _selectedMood == emoji
-                                    ? Colors.amber.shade200
+                                    ? Colors.teal
                                     : Colors.white,
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                ),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(
@@ -142,7 +137,6 @@ class _ArticleWriteScreenState extends ConsumerState<ArticleWriteScreen> {
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(color: Colors.black, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Text(
